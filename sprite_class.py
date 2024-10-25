@@ -153,7 +153,6 @@ while True :
         obstacle_group.update() 
         game_active = collision_sprite()
     else :
-        score = 0
         # player_rectangle.bottomleft = (80,300)
         # player_gravity = 0
         screen.fill((94,129,162))
@@ -165,7 +164,7 @@ while True :
         instruction_rectangle = instruction_surface.get_rect(center = (400, 350))
         display_score_or_instruction(score)
             
-    
+        score = 0
     pygame.display.update()
     clock.tick(60) 
     

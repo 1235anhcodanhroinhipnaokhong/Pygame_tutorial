@@ -1,0 +1,68 @@
+pygame tutorial : 
+video game khác phim ở chỗ nó được cập nhật input người dùng mỗi giây để quyết định xem frame nào sẽ xuất hiện.
+các bước :
+1. checking event loop 
+2. use that info to place element on the screen -> create 1 image, usually 60 times per sec.
+2d game : place images on screen while 3d is 3d models
+
+1. frame : 60fps là tiêu chuẩn, set máy tính sao cho game chạy chậm hơn thì dễ, nhưng bảo máy cùi làm việc nặng thì khó
+2. display surface and regular surface :
+regular surfaces chỉ là những bức ảnh nhỏ, còn display surface là khung tranh chứa những bức ảnh đó ghép với nhau
+3. create text :
+- create a font
+- write text on a surface
+- blit the text surface
+4. rectangles :
+surface for image infomation -> placement via rectangles
+5. có 2 cách để tiếp cận việc xử lý input từ chuột : pygame.mouse và event loop
+6. màu :
+- rgb color : (0->255 * 3)
+- hash color (hex) : #RRGGBB (0 -> f * 6)
+7. keyboard input :
+- pygame.key or event loop
+3 bước :
+    - check xem có đang nhập từ bàn phím
+    - check xem phím gì
+    tại sao phải làm vậy : 
+
+
+8. gravity :
+chỉ cần vui là được, k cần đúng vật lý quá đâu
+- check mouse pos/collision -> button press -> jump
+- check button press -> mouse pos/collision -> jump 
+2 cách này sẽ cho ra kết quả hơi khác nhau chút : check collision mỗi frame sẽ lãng phí tài nguyên hơn
+so với việc check button press rồi mới check collision
+9. creating the floor :
+check the collision between player and floor : xem điểm y có chạm đến ground không(dễ hơn)
+move player up if collision
+10. logic vật cản :
+- tạo 1 list các khối vật cản 
+- mỗi khi timer kích hoạt, ta thêm 1 vật cản vào list đó
+- ta di chuyển mỗi khối trong list đó đến bên trái mỗi frame
+- ta xóa khối đó khi right == 0
+11. animation :
+- player :
+    create our own time that updates the surface
+    + tăng chậm 0.1 index cho mỗi frame, sau đó làm tròn số index rồi truyền vào player_walk để cho ra 0 hoặc 1(index tất nhiên vân =x giữ nguyên), nếu index = 2 thì gán index = 0 -> khi ind = 0 hoặc 1 sẽ in ra 2 ảnh khác nhau tạo cảm giác chuyển động
+- obstacle :
+    rely on the inbuild timers to updates all obstacle surfaces
+12. Sprite class :
+pygame không tự động vẽ Sprite, Sprite chỉ là tổ hợp của surfaces và rectangles
+không thể dùng screen.blit() cho Sprite
+íntead :
+    - create sprite
+    - place sprites in Group or GroupSingle
+    - draw/update all sprites in that group
+
+    - có 2 loại group :
+        + (regular) Group : a group for multiple sprites (flies and snails)
+        + GroupSingle : a group with a single sprite (our player)
+        chia ra 2 loại để dễ check collision
+    
+1. xu ly collision :
+pygame giúp nhận biết collision nhưng k cho ta biết nó xảy ra ở đâu, ở bottom, topleft..., nếu sprite collide ở bên phải nó sẽ teleport xuống dưới sprite kia -> nhân vật dị dịch chuyển tức thời
+cách xử lý :
+    + apply horizontal movement
+    + check horizontal (x) collision
+    + apply vertical movement
+    + check vertical (y) collision
